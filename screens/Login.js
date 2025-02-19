@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     },
     button: {
         marginVertical: 6,
-        width: SIZES.width - 32,
+        // width: SIZES.width - 32,
         borderRadius: 30,
     },
     forgotPasswordBtnText: {
