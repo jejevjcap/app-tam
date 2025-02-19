@@ -70,47 +70,6 @@ const BottomTabNavigation = () => {
                 }}
             />
             <Tab.Screen
-                name="Home 2"
-                component={Home}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View style={{ alignItems: 'center' }}>
-                                <Image
-                                    source={
-                                        focused
-                                            ? icons.home
-                                            : icons.home2Outline
-                                    }
-                                    resizeMode="contain"
-                                    style={{
-                                        height: 24,
-                                        width: 24,
-                                        tintColor: focused
-                                            ? COLORS.primary
-                                            : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
-                                    }}
-                                />
-                                <Text
-                                    style={{
-                                        ...FONTS.body4,
-                                        color: focused
-                                            ? COLORS.primary
-                                            : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
-                                    }}
-                                >
-                                    Home 2
-                                </Text>
-                            </View>
-                        )
-                    },
-                }}
-            />
-            <Tab.Screen
                 name="MyCourse"
                 component={MyCourse}
                 options={{
