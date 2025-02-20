@@ -12,7 +12,13 @@ import { COLORS, SIZES, icons, images } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-virtualized-view'
 import SectionHeader from '../components/SectionHeader'
-import { banners, category, mostPopularCourses, topMentors } from '../data'
+import {
+    banners,
+    category,
+    mostPopularCourses,
+    mostHistoryList,
+    topMentors,
+} from '../data'
 import CourseCard from '../components/CourseCard'
 import { useTheme } from '../theme/ThemeProvider'
 
@@ -90,10 +96,10 @@ const Home = ({ navigation }) => {
                 </View>
                 <View style={styles.viewRight}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('MyBookmark')}
+                        onPress={() => navigation.navigate('Login')}
                     >
                         <Image
-                            source={icons.infoCircle}
+                            source={icons.logout}
                             resizeMode="contain"
                             style={[
                                 styles.bookmarkIcon,
@@ -230,15 +236,10 @@ const Home = ({ navigation }) => {
     /**
      * Render popular courses
      */
-    const renderPopularCourses = () => {
+    const renderHistory = () => {
         const [selectedCategories, setSelectedCategories] = useState(['1'])
 
-        const filteredCourses = mostPopularCourses.filter(
-            (course) =>
-                selectedCategories.includes('1') ||
-                selectedCategories.includes(course.categoryId)
-        )
-
+        const filteredCourses = mostHistoryList
         // Category item
         const renderCategoryItem = ({ item }) => (
             <TouchableOpacity
@@ -284,17 +285,16 @@ const Home = ({ navigation }) => {
         return (
             <View>
                 <SectionHeader
-                    title="Popular Courses"
-                    subtitle="See All"
+                    title="History"
                     onPress={() => navigation.navigate('MostPopularCourses')}
                 />
-                <FlatList
+                {/* <FlatList
                     data={category}
                     keyExtractor={(item) => item.id}
                     showsHorizontalScrollIndicator={false}
                     horizontal
                     renderItem={renderCategoryItem}
-                />
+                /> */}
                 <FlatList
                     data={filteredCourses}
                     keyExtractor={(item) => item.id}
@@ -303,12 +303,12 @@ const Home = ({ navigation }) => {
                             <CourseCard
                                 name={item.name}
                                 image={item.image}
-                                category={item.category}
+                                category={item.status}
                                 price={item.price}
-                                isOnDiscount={item.isOnDiscount}
-                                oldPrice={item.oldPrice}
-                                rating={item.rating}
-                                numStudents={item.numStudents}
+                                // isOnDiscount={item.isOnDiscount}
+                                // oldPrice={item.oldPrice}
+                                // rating={item.rating}
+                                // numStudents={item.numStudents}
                                 onPress={() =>
                                     navigation.navigate('CourseDetailsMore')
                                 }
@@ -334,8 +334,8 @@ const Home = ({ navigation }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* {renderSearchBar()} */}
                     {/*renderBanner()*/}
-                    {renderTopMentors()}
-                    {renderPopularCourses()}
+                    {/* {renderTopMentors()} */}
+                    {renderHistory()}
                 </ScrollView>
             </View>
         </SafeAreaView>

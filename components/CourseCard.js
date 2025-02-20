@@ -44,8 +44,8 @@ const CourseCard = ({
                         <Image
                             source={
                                 isBookmarked
-                                    ? icons.bookmark2
-                                    : icons.bookmark2Outline
+                                    ? icons.editPencil
+                                    : icons.editPencil
                             }
                             resizeMode="contain"
                             style={[
@@ -69,24 +69,24 @@ const CourseCard = ({
                 >
                     {name}
                 </Text>
-                <View style={styles.priceContainer}>
+                {/* <View style={styles.priceContainer}>
                     <Text style={styles.price}>${price}</Text>
                     {isOnDiscount && (
                         <Text style={styles.oldPrice}>
                             {'   '}${oldPrice}
                         </Text>
                     )}
-                </View>
+                </View> */}
                 <View style={styles.ratingContainer}>
-                    <FontAwesome
+                    {/* <FontAwesome
                         name="star-half-empty"
                         size={20}
                         color="orange"
-                    />
-                    <Text style={styles.rating}> {rating}</Text>
+                    /> */}
+                    {/* <Text style={styles.rating}> {rating}</Text> */}
                     <Text style={styles.numStudents}>
                         {' '}
-                        | {numStudents} students
+                        Status {numStudents} lengkap
                     </Text>
                 </View>
             </View>
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
         color: COLORS.primary,
     },
     bookmarkIcon: {
-        width: 24,
-        height: 24,
+        width: 16,
+        height: 16,
         tintColor: COLORS.primary,
     },
     name: {

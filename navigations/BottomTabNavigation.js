@@ -22,7 +22,7 @@ const BottomTabNavigation = () => {
                     right: 0,
                     left: 0,
                     elevation: 0,
-                    height: Platform.OS === 'ios' ? 90 : 60,
+                    height: Platform.OS === 'ios' ? 90 : 65,
                     backgroundColor: dark ? COLORS.dark1 : COLORS.white,
                     borderTopColor: 'transparent',
                 },
@@ -79,8 +79,8 @@ const BottomTabNavigation = () => {
                                 <Image
                                     source={
                                         focused
-                                            ? icons.document
-                                            : icons.documentOutline
+                                            ? icons.videoCamera
+                                            : icons.videoCameraOutline
                                     }
                                     resizeMode="contain"
                                     style={{
@@ -103,7 +103,7 @@ const BottomTabNavigation = () => {
                                               : COLORS.gray3,
                                     }}
                                 >
-                                    My Course
+                                    Boroscope
                                 </Text>
                             </View>
                         )
@@ -118,11 +118,7 @@ const BottomTabNavigation = () => {
                         return (
                             <View style={{ alignItems: 'center' }}>
                                 <Image
-                                    source={
-                                        focused
-                                            ? icons.chatBubble2Outline
-                                            : icons.chatBubble2Outline
-                                    }
+                                    source={focused ? icons.plus : icons.plus}
                                     resizeMode="contain"
                                     style={{
                                         height: 24,
@@ -144,7 +140,7 @@ const BottomTabNavigation = () => {
                                               : COLORS.gray3,
                                     }}
                                 >
-                                    Inbox
+                                    Periksa
                                 </Text>
                             </View>
                         )
@@ -160,7 +156,9 @@ const BottomTabNavigation = () => {
                             <View style={{ alignItems: 'center' }}>
                                 <Image
                                     source={
-                                        focused ? icons.cart : icons.cartOutline
+                                        focused
+                                            ? icons.infoCircle
+                                            : icons.infoCircle
                                     }
                                     resizeMode="contain"
                                     style={{
@@ -183,7 +181,7 @@ const BottomTabNavigation = () => {
                                               : COLORS.gray3,
                                     }}
                                 >
-                                    Transact...
+                                    Petunjuk
                                 </Text>
                             </View>
                         )
@@ -199,7 +197,9 @@ const BottomTabNavigation = () => {
                             <View style={{ alignItems: 'center' }}>
                                 <Image
                                     source={
-                                        focused ? icons.user : icons.userOutline
+                                        focused
+                                            ? icons.settings
+                                            : icons.setting2Outline
                                     }
                                     resizeMode="contain"
                                     style={{
@@ -222,7 +222,7 @@ const BottomTabNavigation = () => {
                                               : COLORS.gray3,
                                     }}
                                 >
-                                    Profile
+                                    Pengaturan
                                 </Text>
                             </View>
                         )
