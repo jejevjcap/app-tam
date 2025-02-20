@@ -73,7 +73,7 @@ const Home = ({ navigation }) => {
                         style={styles.userIcon}
                     />
                     <View style={styles.viewNameContainer}>
-                        <Text style={styles.greeeting}>Good Morning👋</Text>
+                        <Text style={styles.greeeting}>Hi! Username👋</Text>
                         <Text
                             style={[
                                 styles.title,
@@ -84,32 +84,16 @@ const Home = ({ navigation }) => {
                                 },
                             ]}
                         >
-                            Andrew Ainsley
+                            TAM - Area
                         </Text>
                     </View>
                 </View>
                 <View style={styles.viewRight}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Notifications')}
-                    >
-                        <Image
-                            source={icons.notificationBell2}
-                            resizeMode="contain"
-                            style={[
-                                styles.bellIcon,
-                                {
-                                    tintColor: dark
-                                        ? COLORS.white
-                                        : COLORS.greyscale900,
-                                },
-                            ]}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
                         onPress={() => navigation.navigate('MyBookmark')}
                     >
                         <Image
-                            source={icons.bookmarkOutline}
+                            source={icons.infoCircle}
                             resizeMode="contain"
                             style={[
                                 styles.bookmarkIcon,
@@ -348,7 +332,7 @@ const Home = ({ navigation }) => {
             >
                 {renderHeader()}
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    {renderSearchBar()}
+                    {/* {renderSearchBar()} */}
                     {/*renderBanner()*/}
                     {renderTopMentors()}
                     {renderPopularCourses()}

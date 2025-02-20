@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS, SIZES, icons, images } from '../constants'
 import SocialButtonV2 from '../components/SocialButtonV2'
+import Button from '../components/Button'
 import { useTheme } from '../theme/ThemeProvider'
 
 const Welcome = ({ navigation }) => {
@@ -24,7 +25,7 @@ const Welcome = ({ navigation }) => {
                     style={styles.logo}
                 />
                 <Text style={[styles.title, { color: colors.text }]}>
-                    Welcome Back!
+                    Welcome!
                 </Text>
                 <Text
                     style={[
@@ -32,29 +33,10 @@ const Welcome = ({ navigation }) => {
                         { color: dark ? COLORS.white : 'black' },
                     ]}
                 >
-                    Hello there, Continue with and listen the stories from
-                    around the world.
+                    Selamat datang di Aplikasi Pengecekan Nomor - Toyota Astra
+                    Motor.
                 </Text>
-                <View style={{ marginVertical: 32 }}>
-                    <SocialButtonV2
-                        title="Continue with Apple"
-                        icon={icons.appleLogo}
-                        onPress={() => navigation.navigate('Signup')}
-                        iconStyles={{
-                            tintColor: dark ? COLORS.white : COLORS.black,
-                        }}
-                    />
-                    <SocialButtonV2
-                        title="Continue with Google"
-                        icon={icons.google}
-                        onPress={() => navigation.navigate('Signup')}
-                    />
-                    <SocialButtonV2
-                        title="Continue with Email"
-                        icon={icons.email2}
-                        onPress={() => navigation.navigate('Signup')}
-                    />
-                </View>
+                <View style={{ marginVertical: 32 }}></View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text
                         style={[
@@ -63,39 +45,14 @@ const Welcome = ({ navigation }) => {
                                 color: dark ? COLORS.white : 'black',
                             },
                         ]}
-                    >
-                        Already have account?{' '}
-                    </Text>
-                    <TouchableOpacity
+                    ></Text>
+                    <Button
+                        title="Lanjutkan"
+                        filled
                         onPress={() => navigation.navigate('Login')}
-                    >
-                        <Text style={styles.loginSubtitle}>Log In</Text>
-                    </TouchableOpacity>
+                        style={styles.button}
+                    />
                 </View>
-            </View>
-            <View style={styles.bottomContainer}>
-                <Text
-                    style={[
-                        styles.bottomTitle,
-                        {
-                            color: dark ? COLORS.white : COLORS.black,
-                        },
-                    ]}
-                >
-                    By continuing, you accept the Terms Of Use and
-                </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text
-                        style={[
-                            styles.bottomSubtitle,
-                            {
-                                color: dark ? COLORS.white : COLORS.black,
-                            },
-                        ]}
-                    >
-                        Privacy Policy.
-                    </Text>
-                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
@@ -113,12 +70,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    button: {
+        marginVertical: 6,
+        width: SIZES.width - 32,
+        borderRadius: 30,
+    },
     logo: {
         width: 72,
         height: 72,
         marginBottom: 22,
         marginTop: -22,
-        tintColor: COLORS.primary,
+        // tintColor: COLORS.primary,
     },
     title: {
         fontSize: 28,
