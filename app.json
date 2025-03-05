@@ -1,7 +1,7 @@
 {
     "expo": {
-        "name": "Educate",
-        "slug": "Educate",
+        "name": "ATPMTAM",
+        "slug": "ATPMTAM",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
@@ -14,17 +14,51 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
-            "userInterfaceStyle": "automatic"
+            "userInterfaceStyle": "automatic",
+            "infoPlist": {
+                "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.",
+                "NSMicrophoneUsageDescription": "$(PRODUCT_NAME) needs access to your Microphone."
+            },
+            "runtimeVersion": {
+                "policy": "appVersion"
+            }
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#335EF7"
-            }
+            },
+            "package": "com.jecap.ATPMTAM",
+            "permissions": [
+                "android.permission.CAMERA",
+                "android.permission.RECORD_AUDIO",
+                "android.permission.CAMERA",
+                "android.permission.RECORD_AUDIO"
+            ],
+            "runtimeVersion": "1.0.0"
         },
         "web": {
             "favicon": "./assets/images/favicon.png"
         },
-        "plugins": ["expo-font"]
+        "plugins": [
+            [
+                "react-native-vision-camera",
+                {
+                    "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+                    "enableMicrophonePermission": true,
+                    "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone.",
+                    "enableCodeScanner": true
+                }
+            ],
+            "expo-font"
+        ],
+        "extra": {
+            "eas": {
+                "projectId": "1f9c2b63-66c1-4027-ae7d-472cb13c025f"
+            }
+        },
+        "updates": {
+            "url": "https://u.expo.dev/1f9c2b63-66c1-4027-ae7d-472cb13c025f"
+        }
     }
 }

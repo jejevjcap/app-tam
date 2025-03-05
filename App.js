@@ -7,6 +7,8 @@ import AppNavigation from './navigations/AppNavigation'
 import { LogBox } from 'react-native'
 import { ThemeProvider } from './theme/ThemeProvider'
 import * as ScreenOrientation from 'expo-screen-orientation'
+import { CopilotProvider } from 'react-native-copilot' // Import CopilotProvider
+
 // import React, { useEffect } from 'react'
 
 //Ignore all log notifications
@@ -21,10 +23,10 @@ export default function App() {
         if (fontsLoaded) {
             await SplashScreen.hideAsync()
         }
-        const unlockScreenOerientation = async () => {
-            await ScreenOrientation.unlockAsync()
-        }
-        unlockScreenOerientation()
+        // const unlockScreenOerientation = async () => {
+        //     await ScreenOrientation.unlockAsync()
+        // }
+        // unlockScreenOerientation()
     }, [fontsLoaded])
 
     if (!fontsLoaded) {
@@ -32,10 +34,12 @@ export default function App() {
     }
 
     return (
-        <ThemeProvider>
-            <SafeAreaProvider onLayout={onLayoutRootView}>
-                <AppNavigation />
-            </SafeAreaProvider>
-        </ThemeProvider>
+        <CopilotProvider>
+            <ThemeProvider>
+                <SafeAreaProvider onLayout={onLayoutRootView}>
+                    <AppNavigation />
+                </SafeAreaProvider>
+            </ThemeProvider>
+        </CopilotProvider>
     )
 }

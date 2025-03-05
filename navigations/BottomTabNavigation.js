@@ -2,8 +2,9 @@ import { View, Platform, Image, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { COLORS, FONTS, icons } from '../constants'
-import { Home, Inbox, MyCourse, Profile, Transactions } from '../screens'
+import { Home, Inbox, MyDetail, Profile, Transactions } from '../screens'
 import { useTheme } from '../theme/ThemeProvider'
+import Pemeriksaan from '../screens/Pemeriksaan'
 
 const Tab = createBottomTabNavigator()
 
@@ -48,8 +49,8 @@ const BottomTabNavigation = () => {
                                         tintColor: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 />
                                 <Text
@@ -58,8 +59,8 @@ const BottomTabNavigation = () => {
                                         color: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 >
                                     Home
@@ -70,8 +71,8 @@ const BottomTabNavigation = () => {
                 }}
             />
             <Tab.Screen
-                name="MyCourse"
-                component={MyCourse}
+                name="MyDetail"
+                component={MyDetail}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (
@@ -89,8 +90,8 @@ const BottomTabNavigation = () => {
                                         tintColor: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 />
                                 <Text
@@ -99,8 +100,8 @@ const BottomTabNavigation = () => {
                                         color: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 >
                                     Boroscope
@@ -111,8 +112,8 @@ const BottomTabNavigation = () => {
                 }}
             />
             <Tab.Screen
-                name="Inbox"
-                component={Inbox}
+                name="Periksa"
+                component={Pemeriksaan}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (
@@ -126,8 +127,8 @@ const BottomTabNavigation = () => {
                                         tintColor: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 />
                                 <Text
@@ -136,8 +137,8 @@ const BottomTabNavigation = () => {
                                         color: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 >
                                     Periksa
@@ -167,8 +168,8 @@ const BottomTabNavigation = () => {
                                         tintColor: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 />
                                 <Text
@@ -177,8 +178,8 @@ const BottomTabNavigation = () => {
                                         color: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 >
                                     Petunjuk
@@ -208,8 +209,8 @@ const BottomTabNavigation = () => {
                                         tintColor: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 />
                                 <Text
@@ -218,8 +219,8 @@ const BottomTabNavigation = () => {
                                         color: focused
                                             ? COLORS.primary
                                             : dark
-                                              ? COLORS.gray3
-                                              : COLORS.gray3,
+                                            ? COLORS.gray3
+                                            : COLORS.gray3,
                                     }}
                                 >
                                     Pengaturan

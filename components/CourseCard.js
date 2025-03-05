@@ -38,15 +38,9 @@ const CourseCard = ({
                     <View style={styles.categoryContainer}>
                         <Text style={styles.categoryName}>{category}</Text>
                     </View>
-                    <TouchableOpacity
-                        onPress={() => setIsBookmarked(!isBookmarked)}
-                    >
+                    <TouchableOpacity>
                         <Image
-                            source={
-                                isBookmarked
-                                    ? icons.editPencil
-                                    : icons.editPencil
-                            }
+                            source={icons.show}
                             resizeMode="contain"
                             style={[
                                 styles.bookmarkIcon,

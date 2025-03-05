@@ -775,7 +775,7 @@ export const mostHistoryList = [
         updated_at: '19-02-2025',
     },
     {
-        id: '1',
+        id: '3',
         name: 'B 1332 AR',
         status: 'Dikirim',
         image: images.course3,
@@ -783,7 +783,7 @@ export const mostHistoryList = [
         updated_at: '19-02-2025',
     },
     {
-        id: '1',
+        id: '4',
         name: 'B 1332 AR',
         status: 'Dikirim',
         image: images.course1,
@@ -791,7 +791,7 @@ export const mostHistoryList = [
         updated_at: '19-02-2025',
     },
     {
-        id: '1',
+        id: '5',
         name: 'B 1332 AR',
         status: 'Dikirim',
         image: images.course1,

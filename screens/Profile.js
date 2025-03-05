@@ -143,15 +143,15 @@ const Profile = ({ navigation }) => {
             <View style={styles.settingsContainer}>
                 <SettingsItem
                     icon={icons.userOutline}
-                    name="Edit Profile"
+                    name="Edit Profil"
                     onPress={() => navigation.navigate('EditProfile')}
                 />
                 <SettingsItem
-                    icon={icons.bell2}
-                    name="Notification"
+                    icon={icons.setting2Outline}
+                    name="URL Web"
                     onPress={() => navigation.navigate('SettingsNotifications')}
                 />
-                <SettingsItem
+                {/* <SettingsItem
                     icon={icons.wallet2Outline}
                     name="Payment"
                     onPress={() => navigation.navigate('SettingsPayment')}
@@ -273,7 +273,7 @@ const Profile = ({ navigation }) => {
                     icon={icons.people4}
                     name="Invite Friends"
                     onPress={() => navigation.navigate('InviteFriends')}
-                />
+                /> */}
                 <TouchableOpacity
                     onPress={() => refRBSheet.current.open()}
                     style={styles.logoutContainer}
@@ -374,7 +374,7 @@ const Profile = ({ navigation }) => {
                         title="Yes, Logout"
                         filled
                         style={styles.logoutButton}
-                        onPress={() => refRBSheet.current.close()}
+                        onPress={() => navigation.navigate('Login')}
                     />
                 </View>
             </RBSheet>
