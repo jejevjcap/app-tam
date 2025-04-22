@@ -41,7 +41,7 @@ import {
     Search,
     SelectPaymentMethods,
     SettingsLanguage,
-    SettingsNotifications,
+    SettingsEndpoint,
     SettingsPrivacyPolicy,
     SettingsSecurity,
     Signup,
@@ -124,8 +124,8 @@ const AppNavigation = () => {
                 <Stack.Screen name="Main" component={BottomTabNavigation} />
                 <Stack.Screen name="EditProfile" component={EditProfile} />
                 <Stack.Screen
-                    name="SettingsNotifications"
-                    component={SettingsNotifications}
+                    name="SettingsEndpoint"
+                    component={SettingsEndpoint}
                 />
                 <Stack.Screen
                     name="SettingsPayment"

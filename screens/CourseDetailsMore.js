@@ -113,17 +113,6 @@ const CourseDetailsMore = ({ navigation }) => {
                     renderTabBar={renderTabBar}
                 />
             </View>
-
-            <View
-                style={[
-                    styles.bottomContainer,
-                    {
-                        backgroundColor: colors.background,
-                        borderTopColor: dark ? COLORS.dark3 : COLORS.gray,
-                        borderWidth: dark ? 1 : 0.2,
-                    },
-                ]}
-            ></View>
         </View>
     )
 }

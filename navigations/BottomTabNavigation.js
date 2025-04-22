@@ -5,6 +5,7 @@ import { COLORS, FONTS, icons } from '../constants'
 import { Home, Inbox, MyDetail, Profile, Transactions } from '../screens'
 import { useTheme } from '../theme/ThemeProvider'
 import Pemeriksaan from '../screens/Pemeriksaan'
+import CameraSwitcher from '../screens/CameraSwitcher'
 
 const Tab = createBottomTabNavigator()
 
@@ -71,8 +72,8 @@ const BottomTabNavigation = () => {
                 }}
             />
             <Tab.Screen
-                name="MyDetail"
-                component={MyDetail}
+                name="CameraSwitcher"
+                component={CameraSwitcher}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (

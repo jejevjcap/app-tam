@@ -14,12 +14,12 @@ import FillYourProfile from './FillYourProfile'
 import CreateNewPIN from './CreateNewPIN'
 import Fingerprint from './Fingerprint'
 import Home from './Home'
-import MyDetail from './MyCourse'
+import CameraSwitcher from './CameraSwitcher'
 import Inbox from './Inbox'
 import Transactions from './Transactions'
 import Profile from './Profile'
 import EditProfile from './EditProfile'
-import SettingsNotifications from './SettingsNotifications'
+import SettingsEndpoint from './SettingsEndpoint'
 import AddNewCard from './AddNewCard'
 import SettingsSecurity from './SettingsSecurity'
 import ChangePIN from './ChangePIN'
@@ -65,12 +65,12 @@ export {
     CreateNewPIN,
     Fingerprint,
     Home,
-    MyDetail,
+    CameraSwitcher,
     Inbox,
     Transactions,
     Profile,
     EditProfile,
-    SettingsNotifications,
+    SettingsEndpoint,
     AddNewCard,
     SettingsSecurity,
     ChangePIN,

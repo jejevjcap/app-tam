@@ -149,7 +149,7 @@ const Profile = ({ navigation }) => {
                 <SettingsItem
                     icon={icons.setting2Outline}
                     name="URL Web"
-                    onPress={() => navigation.navigate('SettingsNotifications')}
+                    onPress={() => navigation.navigate('SettingsEndpoint')}
                 />
                 {/* <SettingsItem
                     icon={icons.wallet2Outline}

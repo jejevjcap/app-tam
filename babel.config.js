@@ -5,11 +5,10 @@ module.exports = function (api) {
         plugins: [
             [
                 'react-native-reanimated/plugin',
-                {
-                    globals: ['__labelImage'], // add your globals here
-                },
+                // {
+                //     globals: ['__labelImage'],
+                // },
             ],
-
             ['react-native-worklets-core/plugin'],
         ],
     }

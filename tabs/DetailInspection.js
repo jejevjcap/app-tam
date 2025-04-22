@@ -122,10 +122,9 @@ const DetailInspection = () => {
                 <Text style={[styles.title]}>Content</Text>
                 <Text style={[styles.duration]}>Value</Text>
 
+                <Text style={[styles.title]}></Text>
                 <Text style={[styles.title]}>Content</Text>
-                <Text style={[styles.duration]}>Value</Text>
-
-                <Text style={[styles.title]}>Content</Text>
+                <Text></Text>
             </View>
         </ScrollView>
     )
@@ -165,6 +164,10 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     duration: {
+        fontSize: 12,
+        color: 'gray',
+    },
+    durationLast: {
         fontSize: 12,
         color: 'gray',
     },

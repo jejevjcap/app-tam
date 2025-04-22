@@ -8,6 +8,7 @@ import { LogBox } from 'react-native'
 import { ThemeProvider } from './theme/ThemeProvider'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { CopilotProvider } from 'react-native-copilot' // Import CopilotProvider
+// import { worklet, Worklets } from 'react-native-worklets-core'
 
 // import React, { useEffect } from 'react'
 
@@ -23,10 +24,6 @@ export default function App() {
         if (fontsLoaded) {
             await SplashScreen.hideAsync()
         }
-        // const unlockScreenOerientation = async () => {
-        //     await ScreenOrientation.unlockAsync()
-        // }
-        // unlockScreenOerientation()
     }, [fontsLoaded])
 
     if (!fontsLoaded) {

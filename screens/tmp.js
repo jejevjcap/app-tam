@@ -4,118 +4,46 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    useWindowDimensions,
     Switch,
     Button,
 } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { COLORS, SIZES, icons, images } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
-import { MyCompletedCourses, MyOngoingCourses } from '../tabs'
+import { RNCamera } from 'react-native-camera'
+import { useCameraPermission } from 'react-native-vision-camera'
+import { PermissionsAndroid, Platform } from 'react-native'
 import { useTheme } from '../theme/ThemeProvider'
 
-// import {
-//     CameraView,
-//     CameraType,
-//     useCameraPermissions,
-//     Camera,
-// } from 'expo-camera'
-import {
-    runAtTargetFps,
-    useCameraDevice,
-    useCameraPermission,
-    useCameraFormat,
-    useFrameProcessor,
-    useCodeScanner,
-    useLocationPermission,
-    useMicrophonePermission,
-} from 'react-native-vision-camera'
-import { Camera } from 'react-native-vision-camera'
-
-import { useState, useEffect } from 'react'
-
-const renderScene = SceneMap({
-    first: MyOngoingCourses,
-    second: MyCompletedCourses,
-})
-
-const MyDetail = () => {
-    const layout = useWindowDimensions()
-
+const CameraSwitcher2 = () => {
     const { colors, dark } = useTheme()
+    const [isFrontCamera, setIsFrontCamera] = useState(false)
+    const [hasPermission, setHasPermission] = useState(null)
 
-    const device = useCameraDevice('back')
-    const { hasPermission } = useCameraPermission()
-    const codeScanner = useCodeScanner({
-        codeTypes: ['qr', 'ean-13', 'code-128'],
-        onCodeScanned: (codes) => {
-            for (const code of codes) {
-                console.log(
-                    `Scanned ${code.type}: ${code.frame}, ${code.value}`
-                )
-            }
-        },
-    })
-    const [index, setIndex] = React.useState(0)
-    const [routes] = React.useState([
-        { key: 'first', title: 'Boroscope' },
-        { key: 'second', title: 'Handphone' },
-    ])
+    useEffect(() => {
+        requestCameraPermission()
+    }, [])
 
-    const [cameraType, setCameraType] = useState('back')
-
-    if (hasPermission === null) {
-        return <Text>Requesting camera permission...</Text>
-    }
-    if (hasPermission === false) {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.message}>
-                    We need your permission to show the camera
-                </Text>
-                <Button onPress={requestPermission} title="Grant Permission" />
-            </View>
-        )
-    }
-
-    const flipCamera = () => {
-        setCameraType((prevType) => (prevType === 'back' ? 'front' : 'back'))
-    }
-
-    const takePicture = async (camera) => {
-        if (camera) {
-            const photo = await camera.takePictureAsync()
-            console.log(photo)
+    const requestCameraPermission = async () => {
+        if (Platform.OS === 'android') {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.CAMERA
+            )
+            setHasPermission(granted === PermissionsAndroid.RESULTS.GRANTED)
+        } else if (Platform.OS === 'ios') {
+            const status = await RNCamera.requestPermissionsAsync()
+            setHasPermission(status === 'granted')
         }
     }
-    const renderTabBar = (props) => (
-        <TabBar
-            {...props}
-            indicatorStyle={{
-                backgroundColor: COLORS.primary,
-            }}
-            style={{
-                backgroundColor: colors.background,
-            }}
-            renderLabel={({ route, focused }) => (
-                <Text
-                    style={[
-                        {
-                            color: focused ? COLORS.primary : 'gray',
-                            fontSize: 16,
-                            fontFamily: 'semiBold',
-                        },
-                    ]}
-                >
-                    {route.title}
-                </Text>
-            )}
-        />
-    )
-    /**
-     * Render header
-     */
+
+    const cameraType = isFrontCamera
+        ? RNCamera.Constants.Type.front
+        : RNCamera.Constants.Type.back
+
+    const toggleFlipCamera = () => {
+        setIsFrontCamera(!isFrontCamera)
+    }
+
     const renderHeader = () => {
         return (
             <View style={styles.headerContainer}>
@@ -138,36 +66,6 @@ const MyDetail = () => {
                         Boroscope
                     </Text>
                 </View>
-                {/* <View style={styles.headerRight}>
-                    <TouchableOpacity>
-                        <Image
-                            source={icons.search}
-                            resizeMode="contain"
-                            style={[
-                                styles.searchIcon,
-                                {
-                                    tintColor: dark
-                                        ? COLORS.secondaryWhite
-                                        : COLORS.greyscale900,
-                                },
-                            ]}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image
-                            source={icons.moreCircle}
-                            resizeMode="contain"
-                            style={[
-                                styles.moreCircleIcon,
-                                {
-                                    tintColor: dark
-                                        ? COLORS.secondaryWhite
-                                        : COLORS.greyscale900,
-                                },
-                            ]}
-                        />
-                    </TouchableOpacity>
-                </View> */}
             </View>
         )
     }
@@ -203,9 +101,9 @@ const MyDetail = () => {
                 </View>
                 <View style={styles.rightContainer}>
                     <Switch
-                        value={false}
-                        // onValueChange={toggleDarkMode}
-                        thumbColor={false ? '#fff' : COLORS.white}
+                        value={isFrontCamera}
+                        onValueChange={toggleFlipCamera}
+                        thumbColor={isFrontCamera ? '#fff' : COLORS.white}
                         trackColor={{
                             false: '#EEEEEE',
                             true: COLORS.primary,
@@ -219,6 +117,20 @@ const MyDetail = () => {
     }
 
     const renderCamera = () => {
+        if (hasPermission === false) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.message}>
+                        We need your permission to show the camera
+                    </Text>
+                    <Button
+                        onPress={requestCameraPermission}
+                        title="Grant Permission"
+                    />
+                </View>
+            )
+        }
+
         return (
             <View
                 style={[
@@ -226,17 +138,13 @@ const MyDetail = () => {
                     { backgroundColor: colors.background },
                 ]}
             >
-                {/* <CameraView
-                    style={styles.camera}
-                    facing={cameraType}
-                    animateShutter={true}
-                    ratio="16:9"
-                ></CameraView> */}
-                <Camera
+                <RNCamera
                     style={StyleSheet.absoluteFill}
-                    device={device}
-                    isActive={true}
-                    codeScanner={codeScanner}
+                    type={cameraType}
+                    flashMode={RNCamera.Constants.FlashMode.on}
+                    onBarCodeRead={(e) => {
+                        console.log(e.data) // Handle QR code or barcode scan
+                    }}
                 />
             </View>
         )
@@ -255,18 +163,10 @@ const MyDetail = () => {
                 {renderHeader()}
                 {renderChoices()}
                 {renderCamera()}
-                {/* <TabView
-                    navigationState={{ index, routes }}
-                    renderScene={renderScene}
-                    onIndexChange={setIndex}
-                    initialLayout={{ width: layout.width }}
-                    renderTabBar={renderTabBar}
-                /> */}
             </View>
         </SafeAreaView>
     )
 }
-
 const styles = StyleSheet.create({
     area: {
         flex: 1,
@@ -496,4 +396,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default MyDetail
+export default CameraSwitcher2

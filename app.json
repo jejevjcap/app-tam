@@ -3,7 +3,6 @@
         "name": "ATPMTAM",
         "slug": "ATPMTAM",
         "version": "1.0.0",
-        "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "userInterfaceStyle": "light",
         "splash": {
@@ -11,6 +10,7 @@
             "resizeMode": "contain",
             "backgroundColor": "#335EF7"
         },
+
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
@@ -32,8 +32,8 @@
             "permissions": [
                 "android.permission.CAMERA",
                 "android.permission.RECORD_AUDIO",
-                "android.permission.CAMERA",
-                "android.permission.RECORD_AUDIO"
+                "android.permission.USB_PERMISSION",
+                "android.hardware.usb.host"
             ],
             "runtimeVersion": "1.0.0"
         },
@@ -50,11 +50,12 @@
                     "enableCodeScanner": true
                 }
             ],
-            "expo-font"
+            "expo-font",
+            "react-native-document-scanner-plugin"
         ],
         "extra": {
             "eas": {
-                "projectId": "1f9c2b63-66c1-4027-ae7d-472cb13c025f"
+                "projectId": "4df953fa-24cb-4872-86bf-4002addee375"
             }
         },
         "updates": {

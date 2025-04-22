@@ -6,111 +6,150 @@ import {
     FlatList,
     StyleSheet,
 } from 'react-native'
-import React from 'react'
+// import React from 'react'
+
+import { allCourses, allMentors, category } from '../data'
+import React, { useEffect, useState, useRef } from 'react'
+
+import { FontAwesome } from '@expo/vector-icons'
+import RBSheet from 'react-native-raw-bottom-sheet'
 import { messsagesData } from '../data'
 import { COLORS, SIZES } from '../constants'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../theme/ThemeProvider'
-import { Dimensions } from 'react-native'
-// import { Image } from 'expo-image'
-
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
 import Icon from 'react-native-vector-icons/MaterialIcons' // Import Icon
+import Button from '../components/Button'
+
+// Handler slider
+const CustomSliderHandle = ({ enabled, markerStyle }) => {
+    return (
+        <View
+            style={[
+                markerStyle,
+                {
+                    backgroundColor: enabled ? COLORS.primary : 'lightgray',
+                    borderColor: 'white',
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    width: 20,
+                    height: 20,
+                },
+            ]}
+        />
+    )
+}
 
 const Belakang = () => {
+    const refRBSheet = useRef()
     const navigation = useNavigation()
     const { colors, dark } = useTheme()
+
+    const [selectedCategories, setSelectedCategories] = useState(['1'])
+    const [selectedRating, setSelectedRating] = useState(['1'])
+    const [priceRange, setPriceRange] = useState([0, 100]) // Initial price range
+    const [saturationRange, setSaturationRange] = useState([0, 0]) // Initial price range
+    const [contrastRange, setContrastRange] = useState([0, 0]) // Initial price range
+    const [brightRange, setBrigtRange] = useState([0, 0]) // Initial price range
     const blurhash =
         '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj['
 
-    const renderItem = ({ item, index }) => (
-        <TouchableOpacity
-            key={index}
-            onPress={() =>
-                navigation.navigate('Chat', {
-                    userName: item.fullName,
-                })
-            }
-            style={[
-                styles.userContainer,
-                {
-                    borderBottomWidth: dark ? 0 : 1,
-                },
-                index % 2 !== 0
-                    ? {
-                          backgroundColor: dark
-                              ? COLORS.dark1
-                              : COLORS.tertiaryWhite,
-                          borderBottomWidth: dark ? 0 : 1,
-                          borderTopWidth: dark ? 0 : 0,
-                      }
-                    : null,
-            ]}
-        >
-            <View style={styles.userImageContainer}>
-                {item.isOnline && item.isOnline === true && (
-                    <View style={styles.onlineIndicator} />
-                )}
+    const handleSliderChange = (values) => {
+        setPriceRange(values)
+    }
+    const toggleCategory = (categoryId) => {
+        const updatedCategories = [...selectedCategories]
+        const index = updatedCategories.indexOf(categoryId)
 
-                <Image
-                    source={item.userImg}
-                    resizeMode="contain"
-                    style={styles.userImage}
+        if (index === -1) {
+            updatedCategories.push(categoryId)
+        } else {
+            updatedCategories.splice(index, 1)
+        }
+
+        setSelectedCategories(updatedCategories)
+    }
+
+    // toggle rating selection
+    const toggleRating = (ratingId) => {
+        const updatedRatings = [...selectedRating]
+        const index = updatedRatings.indexOf(ratingId)
+
+        if (index === -1) {
+            updatedRatings.push(ratingId)
+        } else {
+            updatedRatings.splice(index, 1)
+        }
+
+        setSelectedRating(updatedRatings)
+    }
+
+    // Category item
+    const renderCategoryItem = ({ item }) => (
+        <TouchableOpacity
+            style={{
+                backgroundColor: selectedCategories.includes(item.id)
+                    ? COLORS.primary
+                    : 'transparent',
+                padding: 10,
+                marginVertical: 5,
+                borderColor: COLORS.primary,
+                borderWidth: 1.3,
+                borderRadius: 24,
+                marginRight: 12,
+            }}
+            onPress={() => toggleCategory(item.id)}
+        >
+            <Text
+                style={{
+                    color: selectedCategories.includes(item.id)
+                        ? COLORS.white
+                        : COLORS.primary,
+                }}
+            >
+                {item.name}
+            </Text>
+        </TouchableOpacity>
+    )
+
+    const renderRatingItem = ({ item }) => (
+        <TouchableOpacity
+            style={{
+                backgroundColor: selectedRating.includes(item.id)
+                    ? COLORS.primary
+                    : 'transparent',
+                paddingHorizontal: 16,
+                paddingVertical: 6,
+                marginVertical: 5,
+                borderColor: COLORS.primary,
+                borderWidth: 1.3,
+                borderRadius: 24,
+                marginRight: 12,
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}
+            onPress={() => toggleRating(item.id)}
+        >
+            <View style={{ marginRight: 6 }}>
+                <FontAwesome
+                    name="star"
+                    size={14}
+                    color={
+                        selectedRating.includes(item.id)
+                            ? COLORS.white
+                            : COLORS.primary
+                    }
                 />
             </View>
-            <View style={{ flexDirection: 'row', width: SIZES.width - 104 }}>
-                <View style={[styles.userInfoContainer]}>
-                    <Text
-                        style={[
-                            styles.userName,
-                            {
-                                color: dark ? COLORS.white : COLORS.black,
-                            },
-                        ]}
-                    >
-                        {item.fullName}
-                    </Text>
-                    <Text style={styles.lastSeen}>{item.lastMessage}</Text>
-                </View>
-                <View
-                    style={{
-                        position: 'absolute',
-                        right: 4,
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text
-                        style={[
-                            styles.lastMessageTime,
-                            {
-                                color: dark ? COLORS.white : COLORS.black,
-                            },
-                        ]}
-                    >
-                        {item.lastMessageTime}
-                    </Text>
-                    <View>
-                        {item.messageInQueue > 0 && (
-                            <TouchableOpacity
-                                style={{
-                                    width: 20,
-                                    height: 20,
-                                    borderRadius: 999,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: item.messageInQueue
-                                        ? COLORS.primary
-                                        : 'transparent',
-                                    marginTop: 12,
-                                }}
-                            >
-                                <Text style={[styles.messageInQueue]}>
-                                    {`${item.messageInQueue}`}
-                                </Text>
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                </View>
-            </View>
+            <Text
+                style={{
+                    color: selectedRating.includes(item.id)
+                        ? COLORS.white
+                        : COLORS.primary,
+                }}
+            >
+                {item.title}
+            </Text>
         </TouchableOpacity>
     )
 
@@ -192,7 +231,7 @@ const Belakang = () => {
                             styles.button,
                             { backgroundColor: COLORS.success },
                         ]}
-                        onPress={() => console.log('Button 1 Pressed')}
+                        onPress={() => refRBSheet.current.open()}
                     >
                         <Icon
                             name="contrast"
@@ -200,10 +239,160 @@ const Belakang = () => {
                             color={COLORS.white}
                             style={styles.icon}
                         />
-                        <Text style={styles.buttonText}>Adjusment</Text>
+                        <Text style={styles.buttonText}>Adjustment</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
+            <RBSheet
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={true}
+                height={200}
+                customStyles={{
+                    wrapper: {
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                    },
+                    draggableIcon: {
+                        backgroundColor: dark ? COLORS.dark3 : '#000',
+                    },
+                    container: {
+                        borderTopRightRadius: 32,
+                        borderTopLeftRadius: 32,
+                        height: 300,
+                        backgroundColor: dark ? COLORS.dark2 : COLORS.white,
+                        alignItems: 'center',
+                    },
+                }}
+            >
+                <Text
+                    style={[
+                        styles.bottomTitle,
+                        {
+                            color: dark ? COLORS.white : COLORS.greyscale900,
+                        },
+                    ]}
+                >
+                    Color Adjustment
+                </Text>
+                <View style={styles.separateLine} />
+                <View style={{ width: SIZES.width - 32 }}>
+                    <Text
+                        style={[
+                            styles.sheetTitle,
+                            {
+                                color: dark
+                                    ? COLORS.white
+                                    : COLORS.greyscale900,
+                            },
+                        ]}
+                    >
+                        Contrast
+                    </Text>
+                    <MultiSlider
+                        values={contrastRange}
+                        sliderLength={SIZES.width - 32}
+                        onValuesChange={handleSliderChange}
+                        min={0}
+                        max={100}
+                        step={1}
+                        allowOverlap={false}
+                        snapped
+                        minMarkerOverlapDistance={40}
+                        customMarker={CustomSliderHandle}
+                        selectedStyle={{ backgroundColor: COLORS.primary }}
+                        unselectedStyle={{ backgroundColor: 'lightgray' }}
+                        containerStyle={{ height: 5 }}
+                        trackStyle={{ height: 3 }}
+                    />
+                </View>
+                <View style={{ width: SIZES.width - 32 }}>
+                    <Text
+                        style={[
+                            styles.sheetTitle,
+                            {
+                                color: dark
+                                    ? COLORS.white
+                                    : COLORS.greyscale900,
+                            },
+                        ]}
+                    >
+                        Brightness
+                    </Text>
+                    <MultiSlider
+                        values={brightRange}
+                        sliderLength={SIZES.width - 32}
+                        // onValuesChange={handleSliderChange}
+                        min={0}
+                        max={100}
+                        step={1}
+                        allowOverlap={false}
+                        snapped
+                        minMarkerOverlapDistance={40}
+                        customMarker={CustomSliderHandle}
+                        selectedStyle={{ backgroundColor: COLORS.primary }}
+                        unselectedStyle={{ backgroundColor: 'lightgray' }}
+                        containerStyle={{ height: 5 }}
+                        trackStyle={{ height: 3 }}
+                    />
+                </View>
+                <View style={{ width: SIZES.width - 32 }}>
+                    <Text
+                        style={[
+                            styles.sheetTitle,
+                            {
+                                color: dark
+                                    ? COLORS.white
+                                    : COLORS.greyscale900,
+                            },
+                        ]}
+                    >
+                        Saturation
+                    </Text>
+                    <MultiSlider
+                        values={saturationRange}
+                        sliderLength={SIZES.width - 32}
+                        // onValuesChange={handleSliderChange}
+                        min={0}
+                        max={100}
+                        step={1}
+                        allowOverlap={false}
+                        snapped
+                        minMarkerOverlapDistance={40}
+                        customMarker={CustomSliderHandle}
+                        selectedStyle={{ backgroundColor: COLORS.primary }}
+                        unselectedStyle={{ backgroundColor: 'lightgray' }}
+                        containerStyle={{ height: 5 }}
+                        trackStyle={{ height: 3 }}
+                    />
+                </View>
+
+                <View style={styles.separateLine} />
+
+                <View style={styles.bottomContainer}>
+                    <Button
+                        title="Reset"
+                        style={{
+                            width: (SIZES.width - 32) / 2 - 8,
+                            backgroundColor: dark
+                                ? COLORS.dark3
+                                : COLORS.tansparentPrimary,
+                            borderRadius: 32,
+                            borderColor: dark
+                                ? COLORS.dark3
+                                : COLORS.tansparentPrimary,
+                        }}
+                        textColor={dark ? COLORS.white : COLORS.primary}
+                        onPress={() => refRBSheet.current.close()}
+                    />
+                    <Button
+                        title="Apply"
+                        filled
+                        style={styles.logoutButton}
+                        onPress={() => refRBSheet.current.close()}
+                    />
+                </View>
+            </RBSheet>
         </View>
     )
 }
@@ -215,7 +404,6 @@ const styles = StyleSheet.create({
         height: 300,
         borderRadius: 10,
     },
-
     container: {
         flex: 1,
         paddingTop: 20, // Space from the top for the title
@@ -383,6 +571,57 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'bold',
         marginLeft: 8, // Space between icon and text
+    },
+
+    subtitle: {
+        fontSize: 18,
+        fontFamily: 'bold',
+        color: COLORS.black,
+    },
+    subResult: {
+        fontSize: 14,
+        fontFamily: 'semiBold',
+        color: COLORS.primary,
+    },
+    resultLeftView: {
+        flexDirection: 'row',
+    },
+    bottomContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 12,
+        paddingHorizontal: 16,
+        width: SIZES.width,
+    },
+    cancelButton: {
+        width: (SIZES.width - 32) / 2 - 8,
+        backgroundColor: COLORS.tansparentPrimary,
+        borderRadius: 32,
+    },
+    logoutButton: {
+        width: (SIZES.width - 32) / 2 - 8,
+        backgroundColor: COLORS.primary,
+        borderRadius: 32,
+    },
+    bottomTitle: {
+        fontSize: 24,
+        fontFamily: 'semiBold',
+        color: COLORS.black,
+        textAlign: 'center',
+        marginTop: 5,
+    },
+    separateLine: {
+        height: 0.4,
+        width: SIZES.width - 32,
+        backgroundColor: COLORS.greyscale300,
+        marginVertical: 0,
+    },
+    sheetTitle: {
+        fontSize: 18,
+        fontFamily: 'semiBold',
+        color: COLORS.black,
+        marginVertical: 12,
     },
 })
 
