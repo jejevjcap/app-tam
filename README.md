@@ -19,3 +19,7 @@ https://github.com/saki4510t/UVCCamera/
 
 # SDK Issues
 https://github.com/saki4510t/UVCCamera/issues/321
+
+# Another Sample, Tried but not Fix the problem
+https://github.com/flyskywhy/react-native-uvc-camera
+https://github.com/jiangdongguo/AndroidUSBCamera
